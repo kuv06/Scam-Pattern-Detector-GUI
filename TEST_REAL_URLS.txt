@@ -1,0 +1,64 @@
+REAL LEGITIMATE (ORIGINAL) URLS FOR TESTING
+===========================================
+
+These are real, widely-known legitimate URLs you can use to ensure your detector does NOT false-positive them.
+
+— Search / Portal / General
+https://www.google.com
+https://www.bing.com
+https://www.yahoo.com
+https://www.duckduckgo.com
+
+— Major E‑commerce / Retail
+https://www.amazon.com
+https://www.ebay.com
+https://www.walmart.com
+https://www.target.com
+
+— Payment / Banking (official domains)
+https://www.paypal.com
+https://www.visa.com
+https://www.mastercard.com
+https://www.chase.com
+https://www.wellsfargo.com
+
+— Technology / Cloud / Developer
+https://www.microsoft.com
+https://www.apple.com
+https://www.google.com/drive
+https://cloud.google.com
+https://aws.amazon.com
+https://developer.github.com
+https://www.github.com
+
+— Social Media / Communication
+https://www.facebook.com
+https://www.instagram.com
+https://www.twitter.com
+https://www.linkedin.com
+https://www.snapchat.com
+
+— Streaming / Entertainment
+https://www.netflix.com
+https://www.youtube.com
+https://www.spotify.com
+
+— Government / Education (secure, official)
+https://www.usa.gov
+https://www.nasa.gov
+https://www.cdc.gov
+https://www.harvard.edu
+
+— Email Providers / Identity
+https://www.gmail.com
+https://outlook.live.com
+https://www.yahoo.com/mail
+
+— Examples with subdomains (legitimate)
+https://mail.google.com
+https://accounts.google.com
+https://support.microsoft.com
+
+Notes:
+- Use these exact URLs (copy/paste) into the message area and run "Scan Message" or "Check URL".
+- The detector should mark these as SAFE (or no scam indicators). If any of these are flagged as suspicious, let me know which one(s) and I will refine the detector to avoid false positives.

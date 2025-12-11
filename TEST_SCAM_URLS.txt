@@ -1,0 +1,263 @@
+REALISTIC LOOKING SCAM URLS FOR TESTING
+======================================
+
+These URLs look legitimate but are actually scams. Test them in the detector!
+
+---
+
+1. BANKING/PAYMENT SCAMS
+========================
+
+https://chase-secure-verify.com/login
+- Mimics Chase Bank with "secure" and "verify" keywords
+- Risk: HIGH (fake banking domain pattern)
+
+https://paypal-account-confirm.net/verify
+- Looks like PayPal but is a different domain
+- Risk: HIGH (company impersonation + verification keyword)
+
+https://amazon-accountupdate.co/security
+- Mimics Amazon with account update language
+- Risk: HIGH (company impersonation)
+
+https://stripe-payment-update.io/checkout
+- Mimics Stripe payment gateway
+- Risk: HIGH (payment service impersonation)
+
+https://apple-id-verification.tk
+- Mimics Apple with free TLD
+- Risk: HIGH (company impersonation + free TLD)
+
+---
+
+2. PHISHING SCAMS
+=================
+
+https://secure-login-portal.com/users/verify?redirect=https://evil.com
+- Contains redirect parameter to hide destination
+- Risk: HIGH (redirect parameter + login keywords)
+
+https://g00gle-account-recovery.com/signin
+- Typosquatting (g00gle instead of google)
+- Risk: HIGH (domain typosquatting)
+
+https://faceb00k-secure.net/login
+- Typosquatting (faceb00k instead of facebook)
+- Risk: HIGH (domain typosquatting + secure keyword)
+
+https://microso1t-365-verify.com/auth
+- Typosquatting (microso1t instead of microsoft)
+- Risk: HIGH (company impersonation)
+
+https://linked1n-profile-update.com/confirm
+- Typosquatting (linked1n instead of linkedin)
+- Risk: HIGH (domain typosquatting)
+
+---
+
+3. CREDENTIAL THEFT SCAMS
+=========================
+
+https://account-verification-required.com/submit?user=&password=
+- Requests credentials with parameters
+- Risk: HIGH (credential theft pattern)
+
+https://netflix-confirm-billing.net/payment
+- Mimics Netflix payment update
+- Risk: HIGH (company impersonation + billing keyword)
+
+https://instagram-verify-account.io/login
+- Mimics Instagram
+- Risk: HIGH (company impersonation)
+
+https://twitter-account-security.tk/signin
+- Mimics Twitter with free domain
+- Risk: HIGH (company impersonation + free TLD)
+
+---
+
+4. OBFUSCATED/ENCODED SCAMS
+============================
+
+https://example.com/%70%61%79%70%61%6c (encodes "paypal")
+- Uses hex encoding to hide PayPal reference
+- Risk: HIGH (encoded characters)
+
+https://secure.example.com/%61%63%63%6f%75%6e%74/%76%65%72%69%66%79
+- Encodes "account/verify"
+- Risk: HIGH (encoded URL path)
+
+https://banking-portal-update.com/verify?continue=https://external-site.com
+- Contains continue redirect parameter
+- Risk: HIGH (redirect parameter)
+
+---
+
+5. LONG/COMPLEX URLS (OBFUSCATION)
+==================================
+
+https://www.legitimate-looking-banking-portal-verification-system-for-account-security-check.com/user/verify/account/password/update/new
+- Extremely long URL to hide actual destination
+- Risk: HIGH (excessive length + suspicious parameters)
+
+https://account-verification-confirm-update-security-banking-portal.net/auth/login/user/pwd?redirect=malicious
+- Very complex with many path segments
+- Risk: HIGH (length + redirect parameter)
+
+---
+
+6. SUBDOMAIN HIJACKING SCAMS
+=============================
+
+https://login.secure.verify.account.com
+- Suspicious subdomain structure (login.secure.verify)
+- Risk: MEDIUM (suspicious subdomain pattern)
+
+https://admin.banking.secure.payment.io
+- Multiple verification-related subdomains
+- Risk: MEDIUM (suspicious subdomain structure)
+
+https://verify.confirm.update.security.net
+- Chain of verification subdomains
+- Risk: MEDIUM (verification subdomain chain)
+
+---
+
+7. TYPOSQUATTING WITH DASHES
+============================
+
+https://payp-al-account.com
+- PayPal with dashes to look legitimate
+- Risk: HIGH (multiple dashes + company impersonation)
+
+https://ama-zon-secure-login.net
+- Amazon with dashes
+- Risk: HIGH (dashes + company impersonation)
+
+https://micro-soft-account-verify.com
+- Microsoft with dashes
+- Risk: HIGH (dashes + impersonation)
+
+---
+
+8. FREE DOMAIN SCAMS
+====================
+
+https://paypal-verify.tk (free domain)
+- PayPal impersonation on free domain
+- Risk: HIGH (company impersonation + free TLD)
+
+https://amazon-login-portal.ml (free domain)
+- Amazon impersonation on free domain
+- Risk: HIGH (company impersonation + free TLD)
+
+https://google-account-recovery.ga (free domain)
+- Google impersonation on free domain
+- Risk: HIGH (company impersonation + free TLD)
+
+---
+
+9. URL SHORTENER SCAMS
+======================
+
+https://bit.ly/secure-banking-update
+- Uses URL shortener to hide destination
+- Risk: CRITICAL (URL shortener hides true destination)
+
+https://tinyurl.com/verify-apple-id
+- TinyURL hiding real destination
+- Risk: CRITICAL (URL shortener)
+
+https://is.gd/amazon-account-verify
+- is.gd shortener with Amazon impersonation text
+- Risk: CRITICAL (shortener + impersonation)
+
+https://short.link/paypal-payment-update
+- Short.link with PayPal impersonation
+- Risk: CRITICAL (shortener)
+
+---
+
+10. IP ADDRESS SCAMS
+====================
+
+https://192.168.1.1/login
+- Direct IP instead of domain
+- Risk: HIGH (IP address instead of domain)
+
+https://172.16.0.1/admin/verify
+- Private IP address
+- Risk: HIGH (IP address)
+
+https://10.0.0.1/account/update
+- Localhost IP range
+- Risk: HIGH (IP address)
+
+---
+
+11. EMAIL-STYLE URLS (@ SYMBOL)
+===============================
+
+https://paypal.com@evil.com
+- Uses @ to appear legitimate but route to evil.com
+- Risk: HIGH (@ symbol phishing)
+
+https://amazon.com@attacker.net
+- Amazon impersonation with @ redirect
+- Risk: HIGH (@ symbol + company impersonation)
+
+---
+
+12. NUMERIC DOMAINS (SUSPICIOUS)
+================================
+
+https://123456789account.com
+- All numbers suggesting randomness
+- Risk: MEDIUM (numeric-heavy domain)
+
+https://99999paypal99.com
+- Numeric padding around company name
+- Risk: MEDIUM (numeric-heavy domain)
+
+https://1234567890verify.net
+- Numeric sequence
+- Risk: MEDIUM (numeric-heavy domain)
+
+---
+
+13. MIXED CASE SCAMS
+====================
+
+https://PayPaL-VeriFy.com
+- Mixed case to confuse detection
+- Risk: MEDIUM (mixed case homograph attack)
+
+https://AmAzOn-SeGuRe.net
+- Random capitalization
+- Risk: MEDIUM (mixed case homograph attack)
+
+---
+
+HOW TO TEST
+===========
+
+1. Copy any of these URLs into the message area
+2. Click "Scan Message" or "Check URL"
+3. The detector should flag them as:
+   - CRITICAL: URL shorteners, punycode
+   - HIGH: Typosquatting, impersonation, encoded, @ symbol, long URLs
+   - MEDIUM: Excessive subdomains, dashes, numeric, mixed case
+   - LOW: Free TLDs, suspicious keywords
+
+EXPECTED RESULTS
+================
+
+✅ All CRITICAL risk URLs should show CRITICAL risk level
+✅ All HIGH risk URLs should show HIGH or CRITICAL risk level
+✅ All MEDIUM risk URLs should show MEDIUM or higher
+✅ Multiple indicators (dashes + typo) should compound risk
+
+If URLs are NOT being detected, it may indicate:
+- Regex pattern issues
+- Risk scoring not working properly
+- Detection logic needing refinement
