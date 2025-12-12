@@ -1,0 +1,240 @@
+================================================================================
+TEST MESSAGES FOR SCAM DETECTOR GUI
+================================================================================
+Use these test messages to verify URL and message-level risk detection.
+Copy each message into the GUI's input area and click "Scan Message" or "Check URL".
+
+================================================================================
+SECTION 1: HIGH RISK MESSAGES (Should show HIGH RISK dialog + URL warnings)
+================================================================================
+
+TEST 1.1 - URL SHORTENER (HIGH)
+Message: Click here to claim your prize: bit.ly/free-money
+Expected: 
+  - URL Risk: HIGH (shortener)
+  - Message Risk: MEDIUM or HIGH (depends on pattern matches)
+  - Warning Dialog: HIGH Risk URL(s) Detected → bit.ly/free-money
+
+TEST 1.2 - URL WITH @ SYMBOL (HIGH)  
+Message: Verify your account at http://amazon.com@phishing-site.com/login
+Expected:
+  - URL Risk: HIGH (@ symbol)
+  - Message Risk: HIGH (verify + account keywords + HIGH risk URL)
+  - Warning Dialog: High Risk URL(s) Detected → http://amazon.com@phishing-site.com/login
+
+TEST 1.3 - VERY LONG URL (MEDIUM)
+Message: Visit this link for your refund: http://example.com/very/long/path/with/many/segments/to/hide/destination/and/make/url/look/legitimate/but/it/is/actually/a/phishing/site/trying/to/steal/your/password/and/personal/information
+Expected:
+  - URL Risk: MEDIUM (very long)
+  - Message Risk: HIGH (refund + long URL)
+  - Warning Dialog: High Risk Message + Medium Risk URL(s) Detected
+
+TEST 1.4 - MULTIPLE HIGH RISK INDICATORS
+Message: URGENT! Act now or your account will be frozen. Click here: tinyurl.com/verify-now and enter your password immediately!
+Expected:
+  - Text Risk: HIGH (urgent + act now + account + password)
+  - URL Risk: HIGH (shortener)
+  - Message Risk: CRITICAL (multiple HIGH indicators)
+  - Warning Dialogs: High Risk Message + High Risk URL(s) Detected
+
+================================================================================
+SECTION 2: MEDIUM RISK MESSAGES (Should show MEDIUM RISK dialog + URL warnings)
+================================================================================
+
+TEST 2.1 - MANY DASHES IN URL (MEDIUM)
+Message: Check your package at www.track-your-delivery-status-for-order-12345.com
+Expected:
+  - URL Risk: MEDIUM (many dashes)
+  - Message Risk: MEDIUM (delivery + package)
+  - Warning Dialog: Medium Risk Message + Medium Risk URL(s) Detected
+
+TEST 2.2 - UNUSUAL TLD (LOW) + TEXT PATTERN (HIGH) = MEDIUM OVERALL
+Message: You won a gift card! Claim it at winner.tk
+Expected:
+  - URL Risk: LOW (unusual TLD .tk)
+  - Text Risk: HIGH (won + gift card)
+  - Message Risk: HIGH (multiple HIGH indicators)
+  - Warning Dialog: High Risk Message + Low Risk URL(s) Detected
+
+TEST 2.3 - KEYWORDS IN URL (LOW) + PHISHING TEXT (HIGH) = HIGH OVERALL
+Message: Login to verify your account here: www.secure-login.com/account/verify
+Expected:
+  - URL Risk: LOW (keywords: login, verify, account)
+  - Text Risk: HIGH (verify + account)
+  - Message Risk: HIGH (multiple patterns)
+  - Warning Dialog: High Risk Message + Low Risk URL(s) Detected
+
+================================================================================
+SECTION 3: LOW RISK MESSAGES (Should show LOW RISK dialog)
+================================================================================
+
+TEST 3.1 - SINGLE LOW RISK PATTERN
+Message: Click here to view our latest newsletter.
+Expected:
+  - Text Risk: LOW (click here only)
+  - No URLs
+  - Message Risk: LOW
+  - Warning Dialog: Low Risk Message (info icon)
+
+TEST 3.2 - SINGLE LOW RISK URL
+Message: Visit our website at www.secure-bank-online.com/banking
+Expected:
+  - URL Risk: LOW (keywords: secure, account-related domain)
+  - Message Risk: LOW or MEDIUM (depends on other patterns)
+  - Warning Dialog: Low Risk URL(s) Detected (info icon)
+
+TEST 3.3 - LEGITIMATE MESSAGE
+Message: Hi, just wanted to follow up on our meeting tomorrow at 2pm. Looking forward to it!
+Expected:
+  - Text Risk: NO SCAM DETECTED
+  - No URLs found
+  - Message Risk: SAFE
+  - Warning Dialog: None (or shows "No obvious scam patterns")
+
+================================================================================
+SECTION 4: MIXED RISK MESSAGES (Multiple URLs with different risks)
+================================================================================
+
+TEST 4.1 - MULTIPLE URLs WITH VARYING RISKS
+Message: Check our deals at shortener.com/deal and verify your account at www.mybank.com/login and visit my site winner.tk
+Expected:
+  - URLs: 
+    * shortener.com/deal → HIGH (shortener)
+    * www.mybank.com/login → LOW (keywords)
+    * winner.tk → LOW (unusual TLD)
+  - Message Risk: HIGH (multiple URLs + verify + account keywords)
+  - Warning Dialog: 
+    * High Risk Message
+    * High Risk URL(s) section: shortener.com/deal
+    * Low Risk URL(s) section: www.mybank.com/login, winner.tk
+
+TEST 4.2 - HIGH RISK URL DISGUISED AS LEGITIMATE
+Message: Use this secure link to update your password: http://secure-amazon-login.phishing.com/account/update
+Expected:
+  - URL Risk: MEDIUM (many dashes, legitimate-looking keywords)
+  - Text Risk: HIGH (update + password + account)
+  - Message Risk: HIGH (combined)
+  - Warning Dialog: High Risk Message + Medium Risk URL(s) Detected
+
+================================================================================
+SECTION 5: EDGE CASES / FALSE POSITIVES (Legitimate but may flag)
+================================================================================
+
+TEST 5.1 - LEGITIMATE BANK SITE WITH SECURITY KEYWORDS
+Message: Log in securely to your account at www.bank-of-america.com/secure-login
+Expected:
+  - URL Risk: LOW (keywords: secure, login, account)
+  - Text Risk: MEDIUM (multiple security/account keywords)
+  - Message Risk: MEDIUM
+  - Warning Dialog: Medium Risk Message (may be false positive — check reasons)
+
+TEST 5.2 - LEGITIMATE DELIVERY SERVICE
+Message: Track your package at www.ups.com/tracking/1234567
+Expected:
+  - URL Risk: NO RISK or LOW
+  - Text Risk: LOW (package keyword only)
+  - Message Risk: LOW
+  - Warning Dialog: Low Risk Message (info icon)
+
+TEST 5.3 - TECHNICAL DOCUMENTATION WITH MANY SUBDOMAINS
+Message: Check API docs at api-v2-staging-dev.example.com/docs
+Expected:
+  - URL Risk: MEDIUM (many dashes/dots)
+  - Text Risk: LOW (docs only)
+  - Message Risk: MEDIUM
+  - Warning Dialog: Medium Risk Message
+
+================================================================================
+SECTION 6: URL-ONLY CHECKS (Click "Check URL" button)
+================================================================================
+
+TEST 6.1 - Check URL: HIGH RISK SHORTENER
+Input: bit.ly/free-money
+Expected:
+  - URL Risk: HIGH
+  - Warning Dialog: High Risk URL(s) Detected
+
+TEST 6.2 - Check URL: MEDIUM RISK (Long URL)
+Input: https://example.com/very/long/path/that/hides/real/destination/phishing/site/steal/data/please
+Expected:
+  - URL Risk: MEDIUM
+  - Warning Dialog: Medium Risk URL(s) Detected
+
+TEST 6.3 - Check URL: LOW RISK
+Input: www.secure-login.com
+Expected:
+  - URL Risk: LOW
+  - Warning Dialog: Low Risk URL(s) Detected (info icon)
+
+TEST 6.4 - Check URL: NO RISK
+Input: https://google.com
+Expected:
+  - URL Risk: NO RISK
+  - No warning dialog (or just displays "No URLs found")
+
+================================================================================
+SECTION 7: PERFORMANCE TESTS (Long messages, many URLs)
+================================================================================
+
+TEST 7.1 - MESSAGE WITH MANY URLs
+Message: Visit bit.ly/1, tinyurl.com/2, is.gd/3, goo.gl/4, and ow.ly/5 for deals!
+Expected:
+  - 5 HIGH risk URLs detected
+  - Message Risk: CRITICAL
+  - Warning Dialog: Shows all 5 shorteners grouped under HIGH
+
+TEST 7.2 - VERY LONG MESSAGE WITH MULTIPLE PATTERNS
+Message: URGENT!!! Act now or your account will be CLOSED! Click here to verify identity: bit.ly/verify. Download form: www.fake-irs.com/form. Send your SSN and password to secure-update.com. This is your FINAL NOTICE. Call 1-800-SCAM-NOW immediately! Limited time offer: 100% FREE! Make $5000/week working from home! Bitcoin giveaway: send 1 BTC to phishing@example.com and get 10 BTC back!
+Expected:
+  - Many HIGH risk indicators (urgent, act now, verify, password, SSN, free money, bitcoin)
+  - HIGH risk URL: bit.ly/verify
+  - MEDIUM/LOW risk URLs: www.fake-irs.com, secure-update.com
+  - Message Risk: CRITICAL
+  - Warning Dialog: High Risk Message (very prominent)
+
+================================================================================
+QUICK REFERENCE: EXPECTED DIALOGS BY MESSAGE TYPE
+================================================================================
+
+CRITICAL/HIGH Message Risk:
+  → Shows RED/ORANGE risk panel
+  → Shows "High Risk Message" warning dialog (WARNING icon)
+  → Shows URL warnings grouped by risk
+
+MEDIUM Message Risk:
+  → Shows YELLOW risk panel
+  → Shows "Medium Risk Message" warning dialog (WARNING icon)
+  → Shows URL warnings grouped by risk
+
+LOW Message Risk:
+  → Shows BLUE risk panel
+  → Shows "Low Risk Message" warning dialog (INFO icon)
+  → Shows URL warnings if any URLs found
+
+NO SCAM DETECTED:
+  → Shows GREEN risk panel
+  → No warning dialog
+  → Shows "No obvious scam patterns found" message
+
+================================================================================
+TESTING TIPS
+================================================================================
+
+1. Copy a test message above and paste it into the input area.
+2. Click "Scan Message" to scan for patterns + URLs (shows all warnings).
+3. Or click "Check URL" to analyze only URLs found in the message.
+4. Check the Risk Level (colored panel) matches expected level.
+5. Verify dialogs appear with correct grouping of URLs by risk.
+6. Click "Clear" to reset and try the next message.
+7. Try sorting results by Category, Length, etc. to verify sorting works.
+
+Expected Behavior Summary:
+  ✓ HIGH risk URLs (shorteners, @, IPs) appear under "HIGH:" in dialog
+  ✓ MEDIUM risk URLs (many dashes, long) appear under "MEDIUM:" in dialog
+  ✓ LOW risk URLs (keywords, unusual TLDs) appear under "LOW:" in dialog
+  ✓ Text patterns are displayed in "OTHER DETECTED INDICATORS"
+  ✓ Overall message risk shown in colored panel + warning dialog
+  ✓ Both "Scan Message" and "Check URL" buttons trigger warnings
+  ✓ No warnings if no scam patterns detected (green "NO SCAM DETECTED" panel)
+
+================================================================================

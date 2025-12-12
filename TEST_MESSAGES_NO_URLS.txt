@@ -1,0 +1,265 @@
+================================================================================
+TEST MESSAGES WITHOUT URLS - SCAM DETECTOR GUI
+================================================================================
+Test messages with NO URLs — only text-based scam pattern detection.
+Copy each message into the GUI's input area and click "Scan Message".
+
+================================================================================
+SECTION 1: CRITICAL RISK MESSAGES (5+ indicators)
+================================================================================
+
+TEST 1.1 - URGENT + ACCOUNT + PASSWORD + LEGAL ACTION
+Message: URGENT! Your account has been suspended due to unusual activity. Confirm your password immediately or legal action will be taken. This is your final notice!
+Expected Risk: CRITICAL - DEFINITE SCAM
+Detected Patterns:
+  - Urgency/Pressure: "URGENT", "immediately"
+  - Account Security: "account has been suspended", "unusual activity"
+  - Personal Info Request: "Confirm your password"
+  - Threat/Fear Tactics: "legal action will be taken", "final notice"
+
+TEST 1.2 - PRIZE SCAM + LOTTERY + VERIFICATION + TOO GOOD TO BE TRUE
+Message: Congratulations! You have won a $1,000,000 lottery prize! Click to claim your reward instantly. We need to verify your identity by confirming your SSN and bank account details. 100% guaranteed, no catch!
+Expected Risk: CRITICAL - DEFINITE SCAM
+Detected Patterns:
+  - Prize/Lottery: "You have won", "lottery prize"
+  - Personal Info Request: "verify your identity", "SSN and bank account"
+  - Too Good to Be True: "100% guaranteed", "no catch"
+  - Phishing Link: "Click to claim"
+
+TEST 1.3 - AUTHORITY IMPERSONATION + THREAT + URGENCY + PAYMENT DEMAND
+Message: This is the IRS. Your account is under investigation for tax evasion. Wire $5,000 immediately to settle your debt or we will file criminal charges and arrest you. Act now or face consequences!
+Expected Risk: CRITICAL - DEFINITE SCAM
+Detected Patterns:
+  - Authority Impersonation: "IRS", "account is under investigation"
+  - Threat/Fear Tactics: "criminal charges", "arrest you", "face consequences"
+  - Urgency: "immediately", "Act now"
+  - Payment Demand (implied in context)
+
+TEST 1.4 - MULTIPLE SCAM RED FLAGS
+Message: URGENT!!! You have been selected for a FREE work-from-home opportunity! Make $10,000 per week with our proven system. Limited spots available - Act fast! Pay only $99 setup fee to start immediately. No experience necessary, guaranteed income!
+Expected Risk: CRITICAL - DEFINITE SCAM
+Detected Patterns:
+  - Urgency: "URGENT", "Act fast", "Limited spots"
+  - Too Good to Be True: "FREE", "guaranteed income", "No experience necessary"
+  - Job Scam: "work-from-home", "pay fee"
+  - Crypto/Investment: "guaranteed", "Make $10,000 per week"
+
+================================================================================
+SECTION 2: HIGH RISK MESSAGES (3-4 major indicators)
+================================================================================
+
+TEST 2.1 - ACCOUNT VERIFICATION + PASSWORD REQUEST + URGENCY
+Message: Dear Customer, Your account has been locked due to suspicious activity. Please verify your account information and update your password within 24 hours to restore access.
+Expected Risk: HIGH RISK - LIKELY SCAM
+Detected Patterns:
+  - Account Security: "account has been locked", "suspicious activity"
+  - Personal Info Request: "verify your account information", "update your password"
+  - Urgency: "within 24 hours"
+
+TEST 2.2 - AMAZON IMPERSONATION + VERIFICATION + CLICK ACTION
+Message: Amazon Security Alert: Unusual activity detected on your account. Please click below to verify your identity and secure your account immediately.
+Expected Risk: HIGH RISK - LIKELY SCAM
+Detected Patterns:
+  - Authority Impersonation: "Amazon Security Alert"
+  - Account Security: "Unusual activity detected"
+  - Phishing Link: "click below to verify"
+  - Urgency: "immediately"
+
+TEST 2.3 - PRIZE WINNER + CLAIM REWARD + INFO REQUEST
+Message: You have won! Congratulations on winning a $500 Amazon gift card! To claim your reward, please provide your full name, address, and credit card information to verify your identity.
+Expected Risk: HIGH RISK - LIKELY SCAM
+Detected Patterns:
+  - Prize/Lottery: "You have won", "winning a $500"
+  - Personal Info Request: "credit card information", "full name, address"
+  - Phishing: Implied claim action
+
+TEST 2.4 - DELIVERY SCAM + CLICK ACTION + URGENCY
+Message: Package delivery failed. Please click to reschedule your delivery or your package will be returned to sender. Act now - offer expires today!
+Expected Risk: HIGH RISK - LIKELY SCAM
+Detected Patterns:
+  - Delivery Scam: "Package delivery failed", "reschedule your delivery"
+  - Phishing Link: "click to reschedule"
+  - Urgency: "Act now", "expires today"
+
+================================================================================
+SECTION 3: MEDIUM RISK MESSAGES (2 moderate indicators)
+================================================================================
+
+TEST 3.1 - ACCOUNT SECURITY + VERIFICATION REQUEST
+Message: We noticed some unusual activity on your account. Please verify your account details to ensure your security.
+Expected Risk: MEDIUM RISK - POSSIBLE SCAM
+Detected Patterns:
+  - Account Security: "unusual activity", "verify your account"
+  - Phishing: General suspicious request
+
+TEST 3.2 - REFUND OFFER + ACTION REQUIRED
+Message: Congratulations! You are eligible for a tax refund of $2,500. Please submit your claim form and banking details to process your refund.
+Expected Risk: MEDIUM RISK - POSSIBLE SCAM
+Detected Patterns:
+  - Tax/Refund Scam: "tax refund", "submit your claim"
+  - Personal Info Request: "banking details"
+
+TEST 3.3 - DELIVERY + PACKAGE STATUS
+Message: Your package is pending delivery. A delivery attempt was made but we were unable to complete it. Please confirm your address.
+Expected Risk: MEDIUM RISK - POSSIBLE SCAM
+Detected Patterns:
+  - Delivery Scam: "package is pending delivery", "delivery attempt"
+  - Personal Info Request: "confirm your address"
+
+TEST 3.4 - PAYMENT VERIFICATION REQUEST
+Message: Your payment method failed. Please update your payment information to continue your subscription and avoid service interruption.
+Expected Risk: MEDIUM RISK - POSSIBLE SCAM
+Detected Patterns:
+  - Payment demand (implied): "payment method failed", "update your payment"
+  - Urgency (implied): "avoid service interruption"
+
+================================================================================
+SECTION 4: LOW RISK MESSAGES (1 minor indicator)
+================================================================================
+
+TEST 4.1 - SINGLE CLICK ACTION
+Message: Click here to view your recent transactions.
+Expected Risk: LOW RISK - SUSPICIOUS
+Detected Patterns:
+  - Phishing Link: "Click here"
+
+TEST 4.2 - SINGLE VERIFICATION REQUEST
+Message: Please verify your account to ensure smooth service.
+Expected Risk: LOW RISK - SUSPICIOUS
+Detected Patterns:
+  - Account Security: "verify your account"
+
+TEST 4.3 - SINGLE DOWNLOAD REQUEST
+Message: Download the latest update to keep your software secure and up to date.
+Expected Risk: LOW RISK - SUSPICIOUS
+Detected Patterns:
+  - Phishing Link: "Download the latest"
+
+TEST 4.4 - SINGLE URGENT MENTION
+Message: This is an urgent matter that requires your attention.
+Expected Risk: LOW RISK - SUSPICIOUS
+Detected Patterns:
+  - Urgency/Pressure: "urgent"
+
+TEST 4.5 - SINGLE CONTACT REQUEST
+Message: Please contact us immediately at 1-800-555-HELP to resolve your issue.
+Expected Risk: LOW RISK - SUSPICIOUS
+Detected Patterns:
+  - Suspicious Contact: "contact us immediately"
+
+================================================================================
+SECTION 5: SAFE MESSAGES (No scam indicators)
+================================================================================
+
+TEST 5.1 - LEGITIMATE BUSINESS EMAIL
+Message: Hi John, just wanted to follow up on our meeting tomorrow at 2pm. Looking forward to discussing the project with you. See you then!
+Expected Risk: NO SCAM DETECTED - SAFE
+Detected Patterns: None
+
+TEST 5.2 - CASUAL COMMUNICATION
+Message: Hey! How are you doing? Did you finish the work on the presentation? Let me know when you have time to review it.
+Expected Risk: NO SCAM DETECTED - SAFE
+Detected Patterns: None
+
+TEST 5.3 - INFORMATIONAL MESSAGE
+Message: Your monthly bill has been generated. Your current balance is $150.00 and is due by the 30th of this month. Thank you for your business.
+Expected Risk: NO SCAM DETECTED - SAFE
+Detected Patterns: None
+
+TEST 5.4 - PERSONAL CONVERSATION
+Message: I hope you're having a great day! Just wanted to check in and see how everything is going with you.
+Expected Risk: NO SCAM DETECTED - SAFE
+Detected Patterns: None
+
+TEST 5.5 - LEGITIMATE NOTIFICATION
+Message: Your appointment has been confirmed for December 15th at 3:00 PM. If you need to reschedule, please reply to this message with your preferred time.
+Expected Risk: NO SCAM DETECTED - SAFE
+Detected Patterns: None
+
+================================================================================
+SECTION 6: EDGE CASES (May trigger false positives)
+================================================================================
+
+TEST 6.1 - LEGITIMATE SECURITY WARNING (May flag as HIGH)
+Message: Security alert: Your password was changed today at 2:30 PM from an unfamiliar device. If this wasn't you, please secure your account immediately by changing your password again.
+Expected Risk: MEDIUM or HIGH (may be false positive)
+Note: Contains legitimate security keywords but could trigger phishing detection
+Detected Patterns:
+  - Account Security: "password was changed", "unfamiliar device", "secure your account"
+  - Urgency: "immediately"
+
+TEST 6.2 - LEGITIMATE LEGAL NOTICE (May flag as HIGH)
+Message: Important legal notice: You have been selected for a class action lawsuit settlement. You may be entitled to compensation. Contact our claims administrator for more information.
+Expected Risk: MEDIUM or HIGH (may be false positive)
+Note: Contains legal keywords that may trigger threat detection
+Detected Patterns:
+  - Threat/Fear: "legal notice", "lawsuit"
+  - Personal Info (implied): Information request
+
+TEST 6.3 - LEGITIMATE FINANCIAL ALERT (May flag as MEDIUM)
+Message: Your account activity report: Unusual transaction detected on 12/10/2025. Please review your recent transactions and confirm they are legitimate. Contact your bank if you did not authorize these charges.
+Expected Risk: MEDIUM (may be false positive)
+Note: Legitimate security alert but uses keywords that trigger detection
+Detected Patterns:
+  - Account Security: "Unusual transaction", "review your recent transactions"
+
+TEST 6.4 - LEGITIMATE BONUS NOTIFICATION (May flag as MEDIUM/HIGH)
+Message: Congratulations! You have been awarded a $50 credit bonus to your account! The credit will expire in 30 days if not used. Enjoy your reward!
+Expected Risk: LOW or MEDIUM (may be false positive)
+Note: Legitimate reward but uses prize language
+Detected Patterns:
+  - Prize/Lottery: "Congratulations", "awarded", "reward"
+  - Urgency: "expire in 30 days"
+
+================================================================================
+QUICK REFERENCE: RISK LEVELS & WARNING BEHAVIOR
+================================================================================
+
+CRITICAL (5+ indicators):
+  → RED panel with "CRITICAL - DEFINITE SCAM"
+  → WARNING dialog: "High Risk Message"
+  → Recommendation: DO NOT RESPOND! Delete immediately.
+
+HIGH (3-4 indicators):
+  → ORANGE panel with "HIGH RISK - LIKELY SCAM"
+  → WARNING dialog: "High Risk Message"
+  → Recommendation: Very suspicious. Do not click links or provide information.
+
+MEDIUM (2 indicators):
+  → YELLOW panel with "MEDIUM RISK - POSSIBLE SCAM"
+  → WARNING dialog: "Medium Risk Message"
+  → Recommendation: Be very cautious. Verify sender through official channels.
+
+LOW (1 indicator):
+  → BLUE panel with "LOW RISK - SUSPICIOUS"
+  → INFO dialog: "Low Risk Message"
+  → Recommendation: Contains suspicious elements. Exercise caution.
+
+SAFE (0 indicators):
+  → GREEN panel with "NO SCAM DETECTED"
+  → NO warning dialog
+  → Recommendation: No obvious scam patterns found.
+
+================================================================================
+TESTING TIPS
+================================================================================
+
+1. Copy a test message above.
+2. Paste into the GUI's input area.
+3. Click "Scan Message" (NOT "Check URL" since these have no URLs).
+4. Verify the colored risk panel matches expected level.
+5. Check the warning dialog appears or doesn't appear as expected.
+6. Review the detected patterns in the results area.
+7. Click "Clear" and try the next message.
+8. Test edge cases to see if they produce false positives.
+
+Expected Behavior:
+  ✓ CRITICAL/HIGH messages show red/orange panel + WARNING dialog
+  ✓ MEDIUM messages show yellow panel + WARNING dialog
+  ✓ LOW messages show blue panel + INFO dialog
+  ✓ SAFE messages show green panel + NO dialog
+  ✓ All detected patterns listed in "OTHER DETECTED INDICATORS"
+  ✓ Dialogs are clear and actionable
+  ✓ Recommendations match risk level
+
+================================================================================
