@@ -40,9 +40,7 @@ public class ScamDetectorGUI extends JFrame {
         SCAM_PATTERNS.put("Job Scam", 
             "hired.*pay.*fee|job offer.*pay.*fee|work from home.*(easy|simple)|no experience.*\\$\\d+|be your own boss");
         SCAM_PATTERNS.put("Suspicious Contact", 
-            "(call|text|contact).*(immediately|urgent|now)|call us back|whatsapp.*\\+?\\d+");       
-        SCAM_PATTERNS.put("Fake URL/Link", 
-            "http|https|www\\.|click here|tap here|view here|open link|go to|visit|download from|access|link");
+            "(call|text|contact).*(immediately|urgent|now)|call us back|whatsapp.*\\+?\\d+");
     }    
     // ========== RISK LEVEL SETTINGS ==========
     //public static final implies that these are fixed values and cannot be changed
@@ -385,6 +383,31 @@ public class ScamDetectorGUI extends JFrame {
     private URLAnalysis analyzeURL(String url) {
         URLAnalysis analysis = new URLAnalysis(url);//creates new URLAnalysis object
         String lower = url.toLowerCase();//convert to lowercase for pattern matching
+        
+        // ===== WHITELIST CHECK - KNOWN LEGITIMATE DOMAINS =====
+        // If the URL is from a known legitimate company/service, mark as SAFE immediately
+        String[] trustedDomains = {
+            "google.com", "youtube.com", "facebook.com", "instagram.com", "twitter.com", 
+            "linkedin.com", "snapchat.com", "tiktok.com", "reddit.com", "pinterest.com",
+            "amazon.com", "ebay.com", "walmart.com", "target.com", "bestbuy.com",
+            "microsoft.com", "apple.com", "github.com", "stackoverflow.com",
+            "paypal.com", "stripe.com", "visa.com", "mastercard.com",
+            "chase.com", "wellsfargo.com", "bofa.com", "citibank.com",
+            "netflix.com", "spotify.com", "hulu.com", "disney.com",
+            "gmail.com", "outlook.com", "yahoo.com", "hotmail.com",
+            "dropbox.com", "box.com", "onedrive.com", "icloud.com", "drive.google.com",
+            "slack.com", "discord.com", "telegram.org", "whatsapp.com",
+            "cdc.gov", "nasa.gov", "usa.gov", "harvard.edu", "mit.edu", "stanford.edu"
+        };
+        for (String trusted : trustedDomains) {
+            if (lower.contains(trusted)) {
+                analysis.isSuspicious = false;
+                analysis.riskLevel = "SAFE";
+                analysis.reasons.add("Legitimate domain: " + trusted);
+                return analysis;  // Return immediately - it's safe
+            }
+        }
+        
         // ===== CRITICAL RISK CHECKS =====
         // Check for URL shorteners (CRITICAL RISK) - they hide the true destination
         String[] shortenerServices = {"bit.ly", "tinyurl", "goo.gl", "ow.ly", "is.gd", "short.link", 
