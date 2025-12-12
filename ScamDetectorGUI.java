@@ -28,7 +28,7 @@ public class ScamDetectorGUI extends JFrame {
         SCAM_PATTERNS.put("Threat/Fear Tactics", 
             "(legal|criminal) action|arrest warrant|(will be|get) arrested|fine of \\$|lawsuit|your account will be (closed|terminated)");   
         SCAM_PATTERNS.put("Too Good to Be True", 
-            "100% (free|guaranteed)|no (catch|risk|strings)|make \\$\\d+.*(per|a) (day|week)|work from home.*\\$|easy money");       
+            "100% (free|guaranteed)|no (catch|risk|strings)|make \\$\\d+.(per|a) (day|week)|work from home.\\$|easy money");       
         SCAM_PATTERNS.put("Crypto/Investment Scam", 
             "send.*bitcoin|crypto.*giveaway|double your (bitcoin|crypto)|guaranteed returns|\\d+% (daily|weekly) (return|profit)");       
         SCAM_PATTERNS.put("Romance Scam", 
@@ -38,9 +38,9 @@ public class ScamDetectorGUI extends JFrame {
         SCAM_PATTERNS.put("Tax/Refund Scam", 
             "tax (refund|rebate)|refund of \\$|stimulus (payment|check)|unclaimed (money|refund)");       
         SCAM_PATTERNS.put("Job Scam", 
-            "hired.*pay.*fee|job offer.*pay.*fee|work from home.*(easy|simple)|no experience.*\\$\\d+|be your own boss");
+            "hired.pay.*fee|job offer.*pay.*fee|work from home.(easy|simple)|no experience.*\\$\\d+|be your own boss");
         SCAM_PATTERNS.put("Suspicious Contact", 
-            "(call|text|contact).*(immediately|urgent|now)|call us back|whatsapp.*\\+?\\d+");
+            "(call|text|contact).(immediately|urgent|now)|call us back|whatsapp.\\+?\\d+");
     }    
     // ========== RISK LEVEL SETTINGS ==========
     //public static final implies that these are fixed values and cannot be changed
@@ -294,7 +294,7 @@ public class ScamDetectorGUI extends JFrame {
     private boolean isValidURL(String url) {
         String lowerURL = url.toLowerCase();
         // Must contain a dot followed by at least 2 letters (basic domain check)
-        return lowerURL.matches(".*[a-z0-9]\\.[a-z]{2,}.*") && 
+        return lowerURL.matches(".[a-z0-9]\\.[a-z]{2,}.") && 
                !lowerURL.matches(".*\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$");
     }
     // ========== SCAN MESSAGE FUNCTION ==========
@@ -428,7 +428,7 @@ public class ScamDetectorGUI extends JFrame {
         }
         // ===== HIGH RISK CHECKS =====
         // Check for IP address instead of domain (HIGH RISK)
-        if (lower.matches(".*\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.*")) {
+        if (lower.matches(".\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}.")) {
             analysis.isSuspicious = true;
             if (!analysis.riskLevel.equals("CRITICAL")) {
                 analysis.riskLevel = "HIGH";
@@ -561,7 +561,7 @@ public class ScamDetectorGUI extends JFrame {
             analysis.reasons.add("Contains suspicious redirect parameters (may hide destination)");
         }
         // Check for encoded/obfuscated URLs (HIGH RISK) - using hex, base64 patterns
-        if (lower.matches(".*%[0-9a-f]{2}.*") || lower.matches(".*&#x[0-9a-f]+;.*")) {
+        if (lower.matches(".%[0-9a-f]{2}.") || lower.matches(".&#x[0-9a-f]+;.")) {
             analysis.isSuspicious = true;
             if (!analysis.riskLevel.equals("CRITICAL")) {
                 analysis.riskLevel = "HIGH";
@@ -582,7 +582,7 @@ public class ScamDetectorGUI extends JFrame {
         for (String site : popularSites) {
             if (lower.contains(site)) {
                 // Check for slight variations like googlel, googl-e, g00gle, etc.
-                if (lower.matches(".*" + site + "(l|l-e|0|0-e|_e|e_|1).*")) {
+                if (lower.matches("." + site + "(l|l-e|0|0-e|e|e|1).")) {
                     analysis.isSuspicious = true;
                     if (!analysis.riskLevel.equals("CRITICAL")) {
                         analysis.riskLevel = "HIGH";
