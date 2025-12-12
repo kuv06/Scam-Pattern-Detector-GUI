@@ -178,22 +178,7 @@ https://short.link/paypal-payment-update
 
 ---
 
-10. IP ADDRESS SCAMS
-====================
 
-https://192.168.1.1/login
-- Direct IP instead of domain
-- Risk: HIGH (IP address instead of domain)
-
-https://172.16.0.1/admin/verify
-- Private IP address
-- Risk: HIGH (IP address)
-
-https://10.0.0.1/account/update
-- Localhost IP range
-- Risk: HIGH (IP address)
-
----
 
 11. EMAIL-STYLE URLS (@ SYMBOL)
 ===============================
