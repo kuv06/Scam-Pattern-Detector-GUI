@@ -1,10 +1,10 @@
-import javax.swing.*;//imports all classes from javax.swing package such as JFrame, JPanel, JButton, JTextArea, JLabel, JComboBox, JOptionPane, SwingUtilities
-import javax.swing.border.*;//imports all classes from javax.swing.border package such as EmptyBorder, TitledBorder
-import java.awt.*;//provides lower level classes for GUI components like Color, Font, BorderLayout, FlowLayout, Cursor
-import java.awt.event.*;//imports all event handling classes like ActionEvent, MouseEvent
-import java.util.*;//imports all utility classes like Map, HashMap, Set, HashSet, ArrayList
-import java.util.List;//imports List interface specifically
-import java.util.regex.*;//imports classes for pattern matching
+import java.awt.*;//imports all classes from javax.swing package such as JFrame, JPanel, JButton, JTextArea, JLabel, JComboBox, JOptionPane, SwingUtilities
+import java.awt.event.*;//imports all classes from javax.swing.border package such as EmptyBorder, TitledBorder
+import java.util.*;//provides lower level classes for GUI components like Color, Font, BorderLayout, FlowLayout, Cursor
+import java.util.List;//imports all event handling classes like ActionEvent, MouseEvent
+import java.util.regex.*;//imports all utility classes like Map, HashMap, Set, HashSet, ArrayList
+import javax.swing.*;//imports List interface specifically
+import javax.swing.border.*;//imports classes for pattern matching
 //C0-05 CONCEPT
 public class ScamDetectorGUI extends JFrame {   
     // ========== SCAM PATTERNS - EDIT THESE TO ADD/REMOVE PATTERNS ==========
@@ -235,60 +235,70 @@ public class ScamDetectorGUI extends JFrame {
     // ========== CHECK URL FUNCTION ==========
     // Enhanced method to check for URLs and analyze them comprehensively for scam risk
     // Improved with better regex, more detection checks, and detailed analysis
-    private void checkURL() {
-        String message = messageArea.getText().trim();
-        // Enhanced regex pattern to catch URLs with or without http/https
-        // Matches: http(s)://domain.com, www.domain.com, and basic domain patterns
-        Pattern urlPattern = Pattern.compile(
-            "(?:(?:https?://)|(?:www\\.))?[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"+
-            "(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\\.[a-zA-Z]{2,}"+
-            "(?:/[^\\s]*)?" +
-            "|" +
-            "https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[^\\s]*)?",
-            Pattern.CASE_INSENSITIVE);
-        Matcher matcher = urlPattern.matcher(message);
-        List<String> foundURLs = new ArrayList<>();
-        // Collect all URLs found and avoid duplicates
-        while (matcher.find()) {
-            String url = matcher.group();
-            if (!foundURLs.contains(url) && isValidURL(url)) {
-                foundURLs.add(url);
-            }
+// ========== CHECK URL FUNCTION ==========
+private void checkURL() {
+    String message = messageArea.getText().trim();
+    
+    // Simple pattern to match URLs with or without protocol
+    Pattern urlPattern = Pattern.compile(
+        "(?:https?://)?(?:www\\.)?[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)+(?:/[^\\s]*)?",
+        Pattern.CASE_INSENSITIVE);
+    
+    Matcher matcher = urlPattern.matcher(message);
+    List<String> foundURLs = new ArrayList<>();
+    
+    // Collect all URLs found and avoid duplicates
+    while (matcher.find()) {
+        String url = matcher.group().trim();
+        // Normalize URL by adding https:// if no protocol present
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "https://" + url;
         }
-        // Show error if no valid URLs found in the message
-        if (foundURLs.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "No valid URLs found in the message!",
-                "No URLs Detected",
-                JOptionPane.INFORMATION_MESSAGE);
-            return;
+        if (!foundURLs.contains(url)) {
+            foundURLs.add(url);
         }
-        // Create result object to store URL analysis findings
-        ScanResult result = new ScanResult();
-        // Analyze each URL found in the message for scam indicators
-        for (String url : foundURLs) {
-            URLAnalysis analysis = analyzeURL(url);
-            result.addURLMatch(analysis.isSuspicious ? "Suspicious URL" : "Safe URL", url, analysis);
-        }
-        // Calculate overall risk score based on URL analysis results
-        int urlRiskScore = 0;
-        for (Match match : result.matches) {
-            if (match.urlAnalysis != null && match.urlAnalysis.isSuspicious) {
-                switch (match.urlAnalysis.riskLevel) {
-                    case "HIGH": urlRiskScore += 3; break;
-                    case "MEDIUM": urlRiskScore += 2; break;
-                    case "LOW": urlRiskScore += 1; break;
-                    default: break;
-                }
-            }
-        }
-        // Calculate final risk level and display results
-        result.calculateRisk(urlRiskScore, foundURLs.size());
-        currentResult = result;
-        displayResults(result);
-        // Show dialog summarizing URL risks found (if any)
-        showURLWarnings(result);
     }
+    
+    // Show error if no valid URLs found in the message
+    if (foundURLs.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "No valid URLs found in the message!",
+            "No URLs Detected",
+            JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+    
+    // Create result object to store URL analysis findings
+    ScanResult result = new ScanResult();
+    
+    // Analyze each URL found in the message for scam indicators
+    for (String url : foundURLs) {
+        URLAnalysis analysis = analyzeURL(url);
+        result.addURLMatch(analysis.isSuspicious ? "Suspicious URL" : "Safe URL", url, analysis);
+    }
+    
+    // Calculate overall risk score based on URL analysis results
+    int urlRiskScore = 0;
+    for (Match match : result.matches) {
+        if (match.urlAnalysis != null && match.urlAnalysis.isSuspicious) {
+            switch (match.urlAnalysis.riskLevel) {
+                case "CRITICAL": urlRiskScore += 3; break;
+                case "HIGH": urlRiskScore += 3; break;
+                case "MEDIUM": urlRiskScore += 2; break;
+                case "LOW": urlRiskScore += 1; break;
+                default: break;
+            }
+        }
+    }
+    
+    // Calculate final risk level and display results
+    result.calculateRisk(urlRiskScore, foundURLs.size());
+    currentResult = result;
+    displayResults(result);
+    
+    // Show dialog summarizing URL risks found (if any)
+    showURLWarnings(result);
+}
     // ========== URL VALIDATION HELPER ==========
     // Validates whether a string is actually a URL (avoids false positives)
     private boolean isValidURL(String url) {
@@ -339,7 +349,20 @@ public class ScamDetectorGUI extends JFrame {
             }
         }
         // Check for suspicious URLs and add them to results
-        checkSuspiciousURLs(message, result);//checks for suspicious URLs in the message and adds them to the result
+        // Check for URLs in the message during scan
+Pattern urlPattern = Pattern.compile(
+    "https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[^\\s]*)?",
+    Pattern.CASE_INSENSITIVE);
+Matcher urlMatcher = urlPattern.matcher(message);
+while (urlMatcher.find()) {
+    String url = urlMatcher.group();
+    URLAnalysis analysis = analyzeURL(url);
+    if (analysis.isSuspicious) {
+        result.addURLMatch("Suspicious URL", url, analysis);
+    } else {
+        result.addURLMatch("Safe URL", url, analysis);
+    }
+}
         // Calculate URL risk score and add to total matches
         int urlRiskScore = 0;
         for (Match match : result.matches) {
@@ -358,26 +381,7 @@ public class ScamDetectorGUI extends JFrame {
         
         return result;
     }
-    // ========== CHECK FOR SUSPICIOUS URLs ==========
-    // This method extracts and analyzes URLs from the message for scam indicators
-    private void checkSuspiciousURLs(String message, ScanResult result)// 
-    {
-        // Create regex pattern to match URLs starting with http:// or https://
-        Pattern urlPattern = Pattern.compile(
-            "https?://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(/[^\\s]*)?",
-            Pattern.CASE_INSENSITIVE);
-        Matcher matcher = urlPattern.matcher(message);//creates a matcher to find URLs in the message
-        // Process each URL found in the message
-        while (matcher.find()) {
-            String url = matcher.group();//gets the matched URL
-            URLAnalysis analysis = analyzeURL(url);//analyzes the URL for scam risk indicators
-            if (analysis.isSuspicious) {
-                result.addURLMatch("Suspicious URL", url, analysis);//adds the suspicious URL match to the result
-            } else {
-                result.addURLMatch("Safe URL", url, analysis);//adds the safe URL match to the result
-            }
-        }
-    }
+
     // ========== URL ANALYSIS METHOD ==========
     // Comprehensive URL analysis with multiple scam indicators and detailed risk assessment
     private URLAnalysis analyzeURL(String url) {
