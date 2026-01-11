@@ -203,12 +203,12 @@ scam-pattern-detector/
 - Kuvira Ambala - https://github.com/kuv06
   
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Inspired by the need for accessible cybersecurity solutions
 - Built with Java for cross-platform compatibility
 
-## 📧 Contact
+## Contact
 
 For questions or feedback, please reach out to kuviraambala@gmail.com
 
