@@ -46,7 +46,7 @@ Scam-Pattern-Detector is a multi-layered security system that analyzes various t
 ### Low Priority
 - **Browser Extension**: Real-time website analysis with visual similarity detection and threat level warnings
 
-## 🛠️ Technology Stack
+##  Technology Stack
 
 - **Language**: Java
 - **Architecture**: Modular, rule-based detection system
