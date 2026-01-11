@@ -61,7 +61,7 @@ Step 1: Install java
 
 After the installation you can check it by using the following command in the terminal. 
 
- java -version
+java -version
 
 Step 2: Open a Java IDE 
 
